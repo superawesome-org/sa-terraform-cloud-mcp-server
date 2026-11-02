@@ -2,7 +2,7 @@
 
 FEATURES
 
-* [New Tool] `get_plan_changes` Lists the resources and outputs a plan changes: action (`delete`, `replace`, `forget`, `update`, `create`, `import`, `move`) and address, with counts per action and resource drift. Never returns attribute values. It reads the redacted JSON plan, so unlike `get_plan_json_output` it works with tokens that don't have workspace admin access. Accepts `run_id` or `plan_id`.
+* [New Tool] `get_plan_redacted` Lists the resources and outputs a plan changes: action (`delete`, `replace`, `forget`, `update`, `create`, `import`, `move`) and address, with counts per action and resource drift. Never returns attribute values. It reads the redacted JSON plan, so unlike `get_plan_json_output` it works with tokens that don't have workspace admin access. Accepts `run_id` or `plan_id`.
 
 IMPROVEMENTS
 

@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestGetPlanChangesTool(t *testing.T) {
-	tool := GetPlanChangesTool()
-	assert.Equal(t, "get_plan_changes", tool.Name)
+func TestGetPlanRedactedTool(t *testing.T) {
+	tool := GetPlanRedactedTool()
+	assert.Equal(t, "get_plan_redacted", tool.Name)
 	assert.Contains(t, tool.Description, "Never returns attribute values")
 	require.NotNil(t, tool.Annotations)
 	assert.True(t, tool.Annotations.ReadOnlyHint)
@@ -21,8 +21,8 @@ func TestGetPlanChangesTool(t *testing.T) {
 	assert.False(t, *tool.Annotations.DestructiveHint)
 }
 
-func TestGetPlanChangesArgumentsSchema(t *testing.T) {
-	schema, err := jsonschema.For[GetPlanChangesArguments](nil)
+func TestGetPlanRedactedArgumentsSchema(t *testing.T) {
+	schema, err := jsonschema.For[GetPlanRedactedArguments](nil)
 	require.NoError(t, err)
 	assert.Empty(t, schema.Required)
 	assert.Equal(t, "string", schema.Properties["run_id"].Type)

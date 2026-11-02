@@ -14,10 +14,10 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// GetPlanChanges creates a tool that lists the resources and outputs a Terraform plan changes.
-func GetPlanChanges(logger *log.Logger) server.ServerTool {
+// GetPlanRedacted creates a tool that lists the resources and outputs a Terraform plan changes.
+func GetPlanRedacted(logger *log.Logger) server.ServerTool {
 	return server.ServerTool{
-		Tool: mcp.NewTool("get_plan_changes",
+		Tool: mcp.NewTool("get_plan_redacted",
 			mcp.WithDescription(`Lists the resources and outputs a Terraform plan changes: action (delete, replace, forget, update, create, import, move) and address, plus counts per action and resources that drifted outside Terraform. Never returns attribute values. Reads the redacted JSON plan, so unlike get_plan_json_output it does not need workspace admin access. Pass the run ID or the plan ID.`),
 			mcp.WithTitleAnnotation("Get the changes in a Terraform plan"),
 			mcp.WithReadOnlyHintAnnotation(true),
@@ -30,12 +30,12 @@ func GetPlanChanges(logger *log.Logger) server.ServerTool {
 			),
 		),
 		Handler: func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-			return getPlanChangesHandler(ctx, req, logger)
+			return getPlanRedactedHandler(ctx, req, logger)
 		},
 	}
 }
 
-func getPlanChangesHandler(ctx context.Context, request mcp.CallToolRequest, logger *log.Logger) (*mcp.CallToolResult, error) {
+func getPlanRedactedHandler(ctx context.Context, request mcp.CallToolRequest, logger *log.Logger) (*mcp.CallToolResult, error) {
 	runID := request.GetString("run_id", "")
 	planID := request.GetString("plan_id", "")
 

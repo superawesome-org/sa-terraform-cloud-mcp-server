@@ -14,14 +14,14 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
-type GetPlanChangesArguments struct {
+type GetPlanRedactedArguments struct {
 	RunID  string `json:"run_id,omitempty" jsonschema:"The ID of the run whose plan to read (run-...). Provide this or plan_id."`
 	PlanID string `json:"plan_id,omitempty" jsonschema:"The ID of the plan to read (plan-...). Provide this or run_id."`
 }
 
-func GetPlanChangesTool() *mcp.Tool {
+func GetPlanRedactedTool() *mcp.Tool {
 	return &mcp.Tool{
-		Name:        "get_plan_changes",
+		Name:        "get_plan_redacted",
 		Description: "Lists the resources and outputs a Terraform plan changes: action (delete, replace, forget, update, create, import, move) and address, plus counts per action and resources that drifted outside Terraform. Never returns attribute values. Reads the redacted JSON plan, so unlike get_plan_json_output it does not need workspace admin access. Pass the run ID or the plan ID.",
 		Annotations: &mcp.ToolAnnotations{
 			Title:           "Get the changes in a Terraform plan",
@@ -32,7 +32,7 @@ func GetPlanChangesTool() *mcp.Tool {
 	}
 }
 
-func GetPlanChangesFunc(ctx context.Context, request *mcp.CallToolRequest, input GetPlanChangesArguments) (*mcp.CallToolResult, any, error) {
+func GetPlanRedactedFunc(ctx context.Context, request *mcp.CallToolRequest, input GetPlanRedactedArguments) (*mcp.CallToolResult, any, error) {
 	tfeClient, err := client.GetTfeClient(ctx, client.SessionIDFromRequest(request))
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to get Terraform client: %w", err)

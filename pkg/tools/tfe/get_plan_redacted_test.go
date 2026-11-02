@@ -10,13 +10,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetPlanChanges(t *testing.T) {
+func TestGetPlanRedacted(t *testing.T) {
 	logger := log.New()
 	logger.SetLevel(log.ErrorLevel)
 
-	tool := GetPlanChanges(logger)
+	tool := GetPlanRedacted(logger)
 
-	assert.Equal(t, "get_plan_changes", tool.Tool.Name)
+	assert.Equal(t, "get_plan_redacted", tool.Tool.Name)
 	assert.Contains(t, tool.Tool.Description, "Never returns attribute values")
 	assert.NotNil(t, tool.Handler)
 
